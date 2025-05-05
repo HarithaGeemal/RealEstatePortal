@@ -80,7 +80,7 @@ public class PropertyServlet extends HttpServlet {
                     String uploadPath = applicationPath + File.separator + UPLOAD_DIR;
                     File uploadDir = new File(uploadPath);
                     if (!uploadDir.exists()) {
-                        uploadDir.mkdirs();
+                        ploadDir.mkdirs();
                     }
                     String fileName = FileUtil.getFileName(filePart);
                     imagePath = FileUtil.saveImage(uploadDir, fileName, filePart.getInputStream());
