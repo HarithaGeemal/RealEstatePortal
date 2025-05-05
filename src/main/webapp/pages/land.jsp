@@ -7,39 +7,694 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="jakarta.tags.core" prefix="c" %>
-<!-- Include Header -->
 <%@ include file="../includes/header.jsp" %>
 
+<style>
+    :root {
+        --primary-glow: #0ea5e9;
+        --secondary-glow: #6366f1;
+        --accent-color: #10b981;
+        --dark-bg: rgba(15, 23, 42, 0.8);
+        --border-glow: rgba(14, 165, 233, 0.3);
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: 'Rajdhani', sans-serif;
+        background-color: #0f172a;
+        color: rgba(255, 255, 255, 0.9);
+        min-height: 100vh;
+        line-height: 1.6;
+    }
+
+    /* Hero Section */
+    .hero-section {
+        position: relative;
+        height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .hero-bg {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        z-index: 1;
+        filter: brightness(0.6);
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 10;
+        text-align: center;
+    }
+
+    .hero-title {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 4rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        background: linear-gradient(to right, var(--primary-glow), var(--secondary-glow));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0 0 15px rgba(14, 165, 233, 0.3);
+        letter-spacing: 2px;
+    }
+
+    /* Breadcrumb */
+    .breadcrumb {
+        background: rgba(30, 41, 59, 0.5);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        padding: 1rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .breadcrumb-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        align-items: center;
+    }
+
+    .breadcrumb-link {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        transition: color 0.3s ease;
+    }
+
+    .breadcrumb-link:hover {
+        color: white;
+    }
+
+    .breadcrumb-separator {
+        margin: 0 0.75rem;
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .breadcrumb-current {
+        color: white;
+        font-weight: 500;
+    }
+
+    /* Featured Lands Section */
+    .featured-section {
+        padding: 5rem 0;
+        position: relative;
+        background: linear-gradient(to bottom, rgba(16, 185, 129, 0.2), rgba(16, 185, 129, 0.1));
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        position: relative;
+        z-index: 2;
+    }
+
+    .section-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .section-line {
+        width: 4px;
+        height: 40px;
+        background: linear-gradient(to bottom, var(--primary-glow), var(--secondary-glow));
+        margin-right: 1rem;
+        border-radius: 2px;
+    }
+
+    .section-title {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 2.5rem;
+        font-weight: 700;
+        background: linear-gradient(to right, var(--primary-glow), var(--secondary-glow));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0 0 10px rgba(14, 165, 233, 0.3);
+        letter-spacing: 1px;
+    }
+
+    .section-description {
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 3rem;
+        font-size: 1.1rem;
+        max-width: 800px;
+    }
+
+    /* Featured Lands Grid */
+    .featured-grid {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 2rem;
+    }
+
+    @media (min-width: 640px) {
+        .featured-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .featured-grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+    .featured-card {
+        background: rgba(30, 41, 59, 0.5);
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+        position: relative;
+    }
+
+    .featured-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 10px 30px rgba(14, 165, 233, 0.2);
+        border-color: var(--primary-glow);
+    }
+
+    .featured-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--primary-glow), var(--secondary-glow), var(--primary-glow), transparent);
+        z-index: 1;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    .featured-card:hover::before {
+        opacity: 1;
+    }
+
+    .featured-image-container {
+        position: relative;
+        height: 200px;
+        overflow: hidden;
+    }
+
+    .featured-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .featured-image-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 1rem;
+    }
+
+    .featured-title {
+        font-weight: 600;
+        font-size: 1.1rem;
+        color: #1e293b;
+    }
+
+    .featured-content {
+        padding: 1.5rem;
+    }
+
+    .featured-location {
+        display: flex;
+        align-items: center;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 1rem;
+    }
+
+    .featured-location-icon {
+        margin-right: 0.5rem;
+    }
+
+    .featured-button {
+        display: block;
+        width: 100%;
+        padding: 0.75rem;
+        background: linear-gradient(135deg, var(--accent-color), #059669);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-family: 'Rajdhani', sans-serif;
+        font-weight: 500;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    .featured-button:hover {
+        box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);
+        transform: translateY(-2px);
+    }
+
+    /* Main Content Section */
+    .main-section {
+        padding: 5rem 0;
+        position: relative;
+        background: rgba(15, 23, 42, 0.9);
+    }
+
+    .main-container {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    @media (min-width: 1024px) {
+        .main-container {
+            flex-direction: row;
+        }
+
+        .main-content {
+            width: 66.666667%;
+        }
+
+        .sidebar {
+            width: 33.333333%;
+        }
+    }
+
+    /* Land Cards */
+    .land-card {
+        background: rgba(30, 41, 59, 0.5);
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+        position: relative;
+        margin-bottom: 2rem;
+    }
+
+    .land-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(14, 165, 233, 0.2);
+        border-color: var(--primary-glow);
+    }
+
+    .land-card-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    @media (min-width: 768px) {
+        .land-card-content {
+            flex-direction: row;
+        }
+
+        .land-image-container {
+            width: 40%;
+        }
+
+        .land-details {
+            width: 60%;
+        }
+    }
+
+    .land-image-container {
+        position: relative;
+        height: 250px;
+    }
+
+    .land-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .land-location-badge {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 0.5rem;
+        text-align: center;
+    }
+
+    .land-details {
+        padding: 1.5rem;
+    }
+
+    .land-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: white;
+    }
+
+    .land-address {
+        display: flex;
+        align-items: center;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 1rem;
+    }
+
+    .land-address-icon {
+        margin-right: 0.5rem;
+    }
+
+    .land-price {
+        margin-bottom: 1.5rem;
+    }
+
+    .land-price-amount {
+        font-size: 1.75rem;
+        font-weight: 700;
+        background: linear-gradient(to right, #ef4444, #dc2626);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    .land-price-unit {
+        font-size: 0.875rem;
+        color: rgba(255, 255, 255, 0.5);
+        margin-top: 0.25rem;
+    }
+
+    .land-actions {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .land-link {
+        display: inline-flex;
+        align-items: center;
+        color: var(--accent-color);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.3s ease;
+    }
+
+    .land-link:hover {
+        color: #059669;
+    }
+
+    .land-link-icon {
+        margin-left: 0.25rem;
+    }
+
+    .land-buttons {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+
+    .land-button {
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-family: 'Rajdhani', sans-serif;
+        font-weight: 500;
+        font-size: 0.875rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        color: white;
+        border: none;
+    }
+
+    .land-button-edit {
+        background: linear-gradient(135deg, #3b82f6, #2563eb);
+    }
+
+    .land-button-delete {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+    }
+
+    .land-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Sidebar / Filters */
+    .sidebar {
+        position: sticky;
+        top: 2rem;
+    }
+
+    .filter-container {
+        background: rgba(16, 185, 129, 0.2);
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid rgba(16, 185, 129, 0.3);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        padding: 2rem;
+        position: relative;
+    }
+
+    .filter-container::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+        z-index: 1;
+    }
+
+    .filter-title {
+        font-family: 'Orbitron', sans-serif;
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        color: white;
+    }
+
+    .filter-group {
+        margin-bottom: 1.5rem;
+    }
+
+    .filter-label {
+        display: block;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+        font-size: 0.95rem;
+    }
+
+    .filter-select-container {
+        position: relative;
+    }
+
+    .filter-select {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        color: white;
+        font-family: 'Rajdhani', sans-serif;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        appearance: none;
+    }
+
+    .filter-select:focus {
+        outline: none;
+        border-color: var(--accent-color);
+        box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+    }
+
+    .filter-select-arrow {
+        position: absolute;
+        right: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+    }
+
+    .filter-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 2rem;
+    }
+
+    .filter-reset {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .filter-reset:hover {
+        color: white;
+        text-decoration: underline;
+    }
+
+    .filter-submit {
+        padding: 0.75rem 1.5rem;
+        background: white;
+        color: var(--accent-color);
+        border: none;
+        border-radius: 8px;
+        font-family: 'Rajdhani', sans-serif;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .filter-submit:hover {
+        background: rgba(255, 255, 255, 0.9);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Back to Top Button */
+    .back-to-top {
+        position: fixed;
+        bottom: 2rem;
+        left: 2rem;
+        width: 3rem;
+        height: 3rem;
+        background: linear-gradient(135deg, var(--primary-glow), var(--secondary-glow));
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        transition: all 0.3s ease;
+        z-index: 100;
+    }
+
+    .back-to-top:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(14, 165, 233, 0.3);
+    }
+
+    /* Geometric background elements */
+    .geometric-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        z-index: 0;
+        opacity: 0.1;
+        pointer-events: none;
+    }
+
+    .geometric-shape {
+        position: absolute;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        pointer-events: none;
+    }
+
+    .shape-1 {
+        width: 300px;
+        height: 300px;
+        top: 10%;
+        left: 5%;
+        border-color: var(--primary-glow);
+        border-radius: 50%;
+    }
+
+    .shape-2 {
+        width: 200px;
+        height: 200px;
+        bottom: 20%;
+        right: 10%;
+        border-color: var(--secondary-glow);
+        transform: rotate(45deg);
+    }
+
+    .shape-3 {
+        width: 150px;
+        height: 150px;
+        top: 40%;
+        right: 20%;
+        border-color: var(--accent-color);
+        border-radius: 10px;
+        transform: rotate(30deg);
+    }
+
+    /* Empty state */
+    .empty-state {
+        text-align: center;
+        color: rgba(255, 255, 255, 0.7);
+        padding: 3rem 0;
+        font-size: 1.1rem;
+    }
+</style>
+
 <!-- Hero Section -->
-<section class="relative h-96 flex items-center justify-center text-center text-white">
-    <!-- Background Image -->
-    <div class="absolute inset-0 bg-cover bg-center" style="background-image:url('/images/placeholder.jpg');"></div>
-    <!-- Overlay -->
-    <div class="absolute inset-0 bg-black opacity-30"></div>
-    <div class="relative z-10">
-        <h1 class="text-6xl font-bold mb-4">Lands</h1>
+<section class="hero-section">
+    <div class="hero-bg" style="background-image:url('/images/placeholder.jpg');"></div>
+
+    <!-- Geometric background elements -->
+    <div class="geometric-bg">
+        <div class="geometric-shape shape-1"></div>
+        <div class="geometric-shape shape-2"></div>
+        <div class="geometric-shape shape-3"></div>
+    </div>
+
+    <div class="hero-content">
+        <h1 class="hero-title">Lands</h1>
     </div>
 </section>
 
 <!-- Breadcrumb Navigation -->
-<div class="bg-gray-100 py-3 px-4">
-    <div class="container mx-auto flex items-center">
-        <a href="${pageContext.request.contextPath}/" class="text-gray-600 hover:text-gray-800">
+<div class="breadcrumb">
+    <div class="breadcrumb-container">
+        <a href="${pageContext.request.contextPath}/" class="breadcrumb-link">
             <i class="fas fa-home mr-1"></i> Home
         </a>
-        <span class="mx-2">›</span>
-        <span class="text-gray-800 font-medium">Lands</span>
+        <span class="breadcrumb-separator">›</span>
+        <span class="breadcrumb-current">Lands</span>
     </div>
 </div>
 
 <!-- Featured Lands Section -->
-<section class="py-12 bg-green-600">
-    <div class="container mx-auto px-4">
-        <div class="flex items-center mb-8">
-            <div class="w-1 h-10 bg-white mr-4"></div>
-            <h2 class="text-4xl font-bold text-white">Featured Lands</h2>
+<section class="featured-section">
+    <!-- Geometric background elements -->
+    <div class="geometric-bg">
+        <div class="geometric-shape shape-1"></div>
+        <div class="geometric-shape shape-2"></div>
+        <div class="geometric-shape shape-3"></div>
+    </div>
+
+    <div class="container">
+        <div class="section-header">
+            <div class="section-line"></div>
+            <h2 class="section-title">Featured Lands</h2>
         </div>
-        <p class="text-white mb-10 max-w-3xl">
+        <p class="section-description">
             Choose from a wide range of lands across 18 districts, tailored to suit your needs
             and preferred location. Find the perfect plot for your lifestyle or investment today!
         </p>
@@ -47,35 +702,34 @@
         <c:choose>
             <%--@elvariable id="lands" type="data"--%>
             <c:when test="${empty lands}">
-                <p class="text-white text-center">No featured lands available.</p>
+                <p class="empty-state">No featured lands available.</p>
             </c:when>
             <c:otherwise>
-                <div class="overflow-hidden">
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        <c:forEach var="land" items="${lands}" begin="0" end="3" varStatus="loop">
-                            <div class="bg-white rounded-lg overflow-hidden shadow-lg">
-                                <div class="relative h-64 overflow-hidden" style="background-color: ${loop.index % 4 == 0 ? '#8e44ad' : loop.index % 4 == 1 ? '#f1c40f' : loop.index % 4 == 2 ? '#7cb342' : '#e74c3c'}">
-                                    <c:choose>
-                                        <c:when test="${not empty land.imagePath}">
-                                            <img src="${pageContext.request.contextPath}${land.imagePath}" alt="Land Logo" class="w-full h-full object-contain p-4">
-                                        </c:when>
-                                        <c:otherwise>
-                                            <img src="${pageContext.request.contextPath}/images/land.jpg" alt="Land Logo" class="w-full h-full object-contain p-4">
-                                        </c:otherwise>
-                                    </c:choose>                                    <div class="absolute bottom-0 left-0 right-0 bg-white bg-opacity-90 p-3">
-                                        <h3 class="text-xl font-bold">${land.address != null ? land.address : 'Property'} - ${land.city}</h3>
-                                    </div>
-                                </div>
-                                <div class="p-4">
-                                    <div class="flex items-center text-gray-600 mb-2">
-                                        <i class="fas fa-map-marker-alt mr-2"></i>
-                                        <span>${land.city}</span>
-                                    </div>
-                                    <a href="${pageContext.request.contextPath}/property?action=view&id=${land.id}" class="block w-full text-center py-2 bg-green-600 text-white rounded hover:bg-green-700 transition duration-200">View Details</a>
+                <div class="featured-grid">
+                    <c:forEach var="land" items="${lands}" begin="0" end="3" varStatus="loop">
+                        <div class="featured-card">
+                            <div class="featured-image-container" style="background-color: ${loop.index % 4 == 0 ? '#8e44ad' : loop.index % 4 == 1 ? '#f1c40f' : loop.index % 4 == 2 ? '#7cb342' : '#e74c3c'}">
+                                <c:choose>
+                                    <c:when test="${not empty land.imagePath}">
+                                        <img src="${pageContext.request.contextPath}${land.imagePath}" alt="Land Logo" class="featured-image">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img src="${pageContext.request.contextPath}/images/land.jpg" alt="Land Logo" class="featured-image">
+                                    </c:otherwise>
+                                </c:choose>
+                                <div class="featured-image-overlay">
+                                    <h3 class="featured-title">${land.address != null ? land.address : 'Property'} - ${land.city}</h3>
                                 </div>
                             </div>
-                        </c:forEach>
-                    </div>
+                            <div class="featured-content">
+                                <div class="featured-location">
+                                    <i class="fas fa-map-marker-alt mr-2"></i>
+                                    <span>${land.city}</span>
+                                </div>
+                                <a href="${pageContext.request.contextPath}/property?action=view&id=${land.id}" class="featured-button">View Details</a>
+                            </div>
+                        </div>
+                    </c:forEach>
                 </div>
             </c:otherwise>
         </c:choose>
@@ -83,136 +737,111 @@
 </section>
 
 <!-- Main Content: Lands and Filters -->
-<section class="py-16 bg-gray-100">
-    <div class="container mx-auto px-4">
-        <div class="flex items-center mb-10">
-            <div class="w-1 h-10 bg-red-600 mr-4"></div>
-            <h2 class="text-4xl font-bold text-gray-800">Find Your Dream Property</h2>
+<section class="main-section">
+    <!-- Geometric background elements -->
+    <div class="geometric-bg">
+        <div class="geometric-shape shape-1"></div>
+        <div class="geometric-shape shape-2"></div>
+        <div class="geometric-shape shape-3"></div>
+    </div>
+
+    <div class="container">
+        <div class="section-header">
+            <div class="section-line"></div>
+            <h2 class="section-title">Find Your Dream Property</h2>
         </div>
 
-        <div class="flex flex-col lg:flex-row gap-8">
+        <div class="main-container">
             <!-- Left: Lands -->
-            <div class="lg:w-2/3">
+            <div class="main-content">
                 <c:choose>
                     <%--@elvariable id="lands" type="data"--%>
                     <c:when test="${empty lands}">
-                        <p class="text-gray-600 text-center">No lands available. Add a land to get started!</p>
+                        <p class="empty-state">No lands available. Add a land to get started!</p>
                     </c:when>
                     <c:otherwise>
-                        <div class="space-y-8">
-                                <%--@elvariable id="lands" type="java.util.List"--%>
-                            <c:forEach var="land" items="${lands}">
-                                <div class="bg-white rounded-lg shadow-md overflow-hidden">
-                                    <div class="flex flex-col md:flex-row">
-                                        <div class="md:w-2/5 h-64 relative">
-                                            <c:choose>
-                                                <c:when test="${not empty land.imagePath}">
-                                                    <img src="${pageContext.request.contextPath}${land.imagePath}" alt="Land Logo" class="w-full h-full object-contain p-4">
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <img src="${pageContext.request.contextPath}/images/land.jpg" alt="Land Logo" class="w-full h-full object-contain p-4">
-                                                </c:otherwise>
-                                            </c:choose>
-                                            <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-70 text-white p-2 text-center">
-                                                    ${land.city}
-                                            </div>
+                        <c:forEach var="land" items="${lands}">
+                            <div class="land-card">
+                                <div class="land-card-content">
+                                    <div class="land-image-container">
+                                        <c:choose>
+                                            <c:when test="${not empty land.imagePath}">
+                                                <img src="${pageContext.request.contextPath}${land.imagePath}" alt="Land Logo" class="land-image">
+                                            </c:when>
+                                            <c:otherwise>
+                                                <img src="${pageContext.request.contextPath}/images/land.jpg" alt="Land Logo" class="land-image">
+                                            </c:otherwise>
+                                        </c:choose>
+                                        <div class="land-location-badge">${land.city}</div>
+                                    </div>
+                                    <div class="land-details">
+                                        <h3 class="land-title">${land.address != null ? land.address : 'Property'} - ${land.city}</h3>
+                                        <div class="land-address">
+                                            <i class="fas fa-map-marker-alt mr-2"></i>
+                                            <span>${land.address}</span>
                                         </div>
-                                        <div class="md:w-3/5 p-6">
-                                            <h3 class="text-2xl font-bold text-gray-800 mb-2">${land.address != null ? land.address : 'Property'} - ${land.city}</h3>
-                                            <div class="flex items-center text-gray-600 mb-4">
-                                                <i class="fas fa-map-marker-alt mr-2"></i>
-                                                <span>${land.address}</span>
-                                            </div>
-                                            <div class="mb-4">
-                                                <div class="text-3xl font-bold text-red-600">${land.price} LKR</div>
-                                                <div class="text-sm text-gray-500">PER PERCH UPWARDS</div>
-                                            </div>
-                                            <a href="${pageContext.request.contextPath}/property?action=view&id=${land.id}"
-                                               class="inline-flex items-center text-green-600 hover:text-green-800 font-medium">
+                                        <div class="land-price">
+                                            <div class="land-price-amount">${land.price} LKR</div>
+                                            <div class="land-price-unit">PER PERCH UPWARDS</div>
+                                        </div>
+                                        <div class="land-actions">
+                                            <a href="${pageContext.request.contextPath}/property?action=view&id=${land.id}" class="land-link">
                                                 Explore Land
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-1" viewBox="0 0 20 20" fill="currentColor">
-                                                    <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="land-link-icon" viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+                                                    <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
                                                 </svg>
                                             </a>
-                                            <div class="mt-4 flex space-x-2">
-                                                <a href="${pageContext.request.contextPath}/property?action=edit&id=${land.id}" class="inline-block px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 text-sm">Edit</a>
-                                                <a href="${pageContext.request.contextPath}/property?action=delete&id=${land.id}" class="inline-block px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 text-sm" onclick="return confirm('Are you sure you want to delete this property?')">Delete</a>
+                                            <div class="land-buttons">
+                                                <a href="${pageContext.request.contextPath}/property?action=edit&id=${land.id}" class="land-button land-button-edit">Edit</a>
+                                                <a href="${pageContext.request.contextPath}/property?action=delete&id=${land.id}" class="land-button land-button-delete" onclick="return confirm('Are you sure you want to delete this property?')">Delete</a>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </c:forEach>
-                        </div>
+                            </div>
+                        </c:forEach>
                     </c:otherwise>
                 </c:choose>
             </div>
 
             <!-- Right: Filters -->
-            <div class="lg:w-1/3">
-                <div class="bg-green-300 text-white p-6 rounded-lg shadow-lg">
-                    <h3 class="text-2xl font-bold mb-6">Filters</h3>
+            <div class="sidebar">
+                <div class="filter-container">
+                    <h3 class="filter-title">Filters</h3>
                     <form action="<c:url value="/land"/>" method="post" class="search-form">
                         <!-- Districts -->
-                        <div class="mb-6">
-                            <label class="block text-sm font-medium mb-2">Districts</label>
-                            <div class="relative">
-                                <label>
-                                    <select name="city" class="w-full p-3 rounded-lg text-gray-800 appearance-none">
-                                        <option value="">All Districts</option>
-                                        <option value="Anuradhapura">Anuradhapura</option>
-                                        <option value="Colombo">Colombo</option>
-                                        <option value="Galle">Galle</option>
-                                        <option value="Gampaha">Gampaha</option>
-                                        <option value="Hambantota">Hambantota</option>
-                                        <option value="Kalutara">Kalutara</option>
-                                        <option value="Kandy">Kandy</option>
-                                        <option value="Kegalle">Kegalle</option>
-                                        <option value="Kurunegala">Kurunegala</option>
-                                        <option value="Matale">Matale</option>
-                                        <option value="Matara">Matara</option>
-                                        <option value="Nuwara Eliya">Nuwara Eliya</option>
-                                        <option value="Ratnapura">Ratnapura</option>
-                                    </select>
-                                </label>
-                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-800">
-                                    <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                                        <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"></path>
+                        <div class="filter-group">
+                            <label class="filter-label">Districts</label>
+                            <div class="filter-select-container">
+                                <select name="city" class="filter-select">
+                                    <option value="">All Districts</option>
+                                    <option value="Anuradhapura">Anuradhapura</option>
+                                    <option value="Colombo">Colombo</option>
+                                    <option value="Galle">Galle</option>
+                                    <option value="Gampaha">Gampaha</option>
+                                    <option value="Hambantota">Hambantota</option>
+                                    <option value="Kalutara">Kalutara</option>
+                                    <option value="Kandy">Kandy</option>
+                                    <option value="Kegalle">Kegalle</option>
+                                    <option value="Kurunegala">Kurunegala</option>
+                                    <option value="Matale">Matale</option>
+                                    <option value="Matara">Matara</option>
+                                    <option value="Nuwara Eliya">Nuwara Eliya</option>
+                                    <option value="Ratnapura">Ratnapura</option>
+                                </select>
+                                <div class="filter-select-arrow">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
                                     </svg>
                                 </div>
                             </div>
                         </div>
 
-
-
-<%--                        <!-- Perch Price (Min) -->--%>
-<%--                        <div class="mb-6">--%>
-<%--                            <label class="block text-sm font-medium mb-2">Perch Price (Min)</label>--%>
-<%--                            <div class="relative">--%>
-<%--                                <label>--%>
-<%--                                    <input type="number" name="minPrice" placeholder="" class="w-full p-3 rounded-lg text-gray-800 pr-12">--%>
-<%--                                </label>--%>
-<%--                                <div class="absolute inset-y-0 right-0 flex items-center px-3 text-gray-800 bg-gray-200 rounded-r-lg">--%>
-<%--                                    <span>LKR</span>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-
-<%--                        <!-- Perch Price (Max) -->--%>
-<%--                        <div class="mb-6">--%>
-<%--                            <label class="block text-sm font-medium mb-2">Perch Price (Max)</label>--%>
-<%--                            <div class="relative">--%>
-<%--                                <label>--%>
-<%--                                    <input type="number" name="maxPrice" placeholder="" class="w-full p-3 rounded-lg text-gray-800 pr-12">--%>
-<%--                                </label>--%>
-<%--                                <div class="absolute inset-y-0 right-0 flex items-center px-3 text-gray-800 bg-gray-200 rounded-r-lg">--%>
-<%--                                    <span>LKR</span>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-
-                        <div class="relative">
-                            <label>
-                                <select name="category" class="form-select">
+                        <!-- Categories -->
+                        <div class="filter-group">
+                            <label class="filter-label">Categories</label>
+                            <div class="filter-select-container">
+                                <select name="category" class="filter-select">
                                     <option value="">Select Category</option>
                                     <option value="Residential">Residential</option>
                                     <option value="Commercial">Commercial</option>
@@ -228,13 +857,18 @@
                                     <option value="Close to Airport">Close to Airport</option>
                                     <option value="Close to railway stations">Close to railway stations</option>
                                 </select>
-                            </label>
+                                <div class="filter-select-arrow">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
+                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                    </svg>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- Reset and Search Buttons -->
-                        <div class="flex justify-between items-center">
-                            <a href="<c:url value="/land"/>" class="text-white hover:underline">Reset</a>
-                            <button type="submit" class="px-6 py-3 bg-white text-green-600 font-medium rounded-lg hover:bg-gray-100 transition duration-200">Search</button>
+                        <div class="filter-actions">
+                            <a href="<c:url value="/land"/>" class="filter-reset">Reset</a>
+                            <button type="submit" class="filter-submit">Search</button>
                         </div>
                     </form>
                 </div>
@@ -244,14 +878,11 @@
 </section>
 
 <!-- Back to Top Button -->
-<a href="#" class="fixed bottom-6 left-6 bg-green-800 text-white w-10 h-10 rounded-md flex items-center justify-center shadow-lg hover:bg-green-700 transition duration-200">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>
+<a href="#" class="back-to-top">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20">
+        <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd" />
     </svg>
 </a>
 
 <!-- Include Footer -->
 <%@ include file="../includes/footer.jsp" %>
-
-
-
