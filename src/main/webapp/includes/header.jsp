@@ -257,7 +257,7 @@
 
         <!-- Navigation Links -->
         <nav class="nav-links" id="navLinks">
-            <a href="${pageContext.request.contextPath}/home" class="nav-link">Home</a>
+            <a hre="${pageContext.request.contextPath}/home" class="nav-link">Home</a>
             <a href="${pageContext.request.contextPath}/land" class="nav-link">Lands</a>
             <a href="${pageContext.request.contextPath}/houses" class="nav-link">Houses</a>
             <a href="${pageContext.request.contextPath}/property" class="nav-link">Sell Your Land</a>
