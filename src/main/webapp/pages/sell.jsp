@@ -146,6 +146,20 @@
         }
 
         /* Form Styles */
+        .form-select option {
+            background-color: #1e293b; /* dark blue-gray background */
+            color: white;
+            padding: 10px;
+        }
+
+        .form-select {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            overflow-y: auto;
+            max-height: 200px;
+        }
+
+
         .submission-form {
             background: rgba(30, 41, 59, 0.5);
             border-radius: 16px;

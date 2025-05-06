@@ -248,10 +248,6 @@
         margin-bottom: 1rem;
     }
 
-    .featured-location-icon {
-        margin-right: 0.5rem;
-    }
-
     .featured-button {
         display: block;
         width: 100%;
@@ -379,10 +375,6 @@
         margin-bottom: 1rem;
     }
 
-    .land-address-icon {
-        margin-right: 0.5rem;
-    }
-
     .land-price {
         margin-bottom: 1.5rem;
     }
@@ -461,6 +453,19 @@
     .sidebar {
         position: sticky;
         top: 2rem;
+    }
+
+    .filter-select option {
+        background-color: #1e293b; /* dark blue-gray background */
+        color: white;
+        padding: 10px;
+    }
+
+    .filter-select {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+        overflow-y: auto;
+        max-height: 200px;
     }
 
     .filter-container {
@@ -655,7 +660,7 @@
 
 <!-- Hero Section -->
 <section class="hero-section">
-    <div class="hero-bg" style="background-image:url('/images/placeholder.jpg');"></div>
+    <div class="hero-bg" style="background-image: url('${pageContext.request.contextPath}/images/your-hero-image.jpg');"></div>
 
     <!-- Geometric background elements -->
     <div class="geometric-bg">
@@ -788,7 +793,7 @@
                                             <a href="${pageContext.request.contextPath}/property?action=view&id=${land.id}" class="land-link">
                                                 Explore Land
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="land-link-icon" viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
-                                                    <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                                    <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                                                 </svg>
                                             </a>
                                             <div class="land-buttons">
@@ -813,25 +818,27 @@
                         <div class="filter-group">
                             <label class="filter-label">Districts</label>
                             <div class="filter-select-container">
-                                <select name="city" class="filter-select">
-                                    <option value="">All Districts</option>
-                                    <option value="Anuradhapura">Anuradhapura</option>
-                                    <option value="Colombo">Colombo</option>
-                                    <option value="Galle">Galle</option>
-                                    <option value="Gampaha">Gampaha</option>
-                                    <option value="Hambantota">Hambantota</option>
-                                    <option value="Kalutara">Kalutara</option>
-                                    <option value="Kandy">Kandy</option>
-                                    <option value="Kegalle">Kegalle</option>
-                                    <option value="Kurunegala">Kurunegala</option>
-                                    <option value="Matale">Matale</option>
-                                    <option value="Matara">Matara</option>
-                                    <option value="Nuwara Eliya">Nuwara Eliya</option>
-                                    <option value="Ratnapura">Ratnapura</option>
-                                </select>
+                                <label>
+                                    <select name="city" class="filter-select">
+                                        <option value="">All Districts</option>
+                                        <option value="Anuradhapura">Anuradhapura</option>
+                                        <option value="Colombo">Colombo</option>
+                                        <option value="Galle">Galle</option>
+                                        <option value="Gampaha">Gampaha</option>
+                                        <option value="Hambantota">Hambantota</option>
+                                        <option value="Kalutara">Kalutara</option>
+                                        <option value="Kandy">Kandy</option>
+                                        <option value="Kegalle">Kegalle</option>
+                                        <option value="Kurunegala">Kurunegala</option>
+                                        <option value="Matale">Matale</option>
+                                        <option value="Matara">Matara</option>
+                                        <option value="Nuwara Eliya">Nuwara Eliya</option>
+                                        <option value="Ratnapura">Ratnapura</option>
+                                    </select>
+                                </label>
                                 <div class="filter-select-arrow">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
-                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                                     </svg>
                                 </div>
                             </div>
@@ -841,25 +848,27 @@
                         <div class="filter-group">
                             <label class="filter-label">Categories</label>
                             <div class="filter-select-container">
-                                <select name="category" class="filter-select">
-                                    <option value="">Select Category</option>
-                                    <option value="Residential">Residential</option>
-                                    <option value="Commercial">Commercial</option>
-                                    <option value="Coconut Land">Coconut Land</option>
-                                    <option value="Water Front Land">Water Front Land</option>
-                                    <option value="Agricultural Land">Agricultural Land</option>
-                                    <option value="Paddy field facing lands">Paddy field facing lands</option>
-                                    <option value="Mountain view land">Mountain view land</option>
-                                    <option value="Up country lands">Up country lands</option>
-                                    <option value="Down south lands">Down south lands</option>
-                                    <option value="Close to sacred/ancient city lands">Close to sacred/ancient city lands</option>
-                                    <option value="Close to highways">Close to highways</option>
-                                    <option value="Close to Airport">Close to Airport</option>
-                                    <option value="Close to railway stations">Close to railway stations</option>
-                                </select>
+                                <label>
+                                    <select name="category" class="filter-select">
+                                        <option value="">Select Category</option>
+                                        <option value="Residential">Residential</option>
+                                        <option value="Commercial">Commercial</option>
+                                        <option value="Coconut Land">Coconut Land</option>
+                                        <option value="Water Front Land">Water Front Land</option>
+                                        <option value="Agricultural Land">Agricultural Land</option>
+                                        <option value="Paddy field facing lands">Paddy field facing lands</option>
+                                        <option value="Mountain view land">Mountain view land</option>
+                                        <option value="Up country lands">Up country lands</option>
+                                        <option value="Down south lands">Down south lands</option>
+                                        <option value="Close to sacred/ancient city lands">Close to sacred/ancient city lands</option>
+                                        <option value="Close to highways">Close to highways</option>
+                                        <option value="Close to Airport">Close to Airport</option>
+                                        <option value="Close to railway stations">Close to railway stations</option>
+                                    </select>
+                                </label>
                                 <div class="filter-select-arrow">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="16" height="16">
-                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                        <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
                                     </svg>
                                 </div>
                             </div>
@@ -880,7 +889,7 @@
 <!-- Back to Top Button -->
 <a href="#" class="back-to-top">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" width="20" height="20">
-        <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd" />
+        <path fill-rule="evenodd" d="M14.707 12.707a1 1 0 01-1.414 0L10 9.414l-3.293 3.293a1 1 0 01-1.414-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 010 1.414z" clip-rule="evenodd"></path>
     </svg>
 </a>
 

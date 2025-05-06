@@ -389,6 +389,20 @@
     }
 
     /* Filter Sidebar */
+
+    .filter-select option {
+        background-color: #1e293b;
+        color: white;
+        padding: 10px;
+    }
+
+    .filter-select {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: white;
+        overflow-y: auto;
+        max-height: 200px;
+    }
+
     .filter-container {
         background: rgba(30, 41, 59, 0.5);
         border-radius: 16px;
