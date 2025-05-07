@@ -62,7 +62,7 @@
         color: rgba(255, 255, 255, 0.7);
         font-weight: 500;
         transition: all 0.3s;
-        letter-spacing: 0.5px;
+        letter-spacing: 1px;
         padding: 0.5rem 1rem;
         border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 20px;
