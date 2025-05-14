@@ -22,7 +22,7 @@ public class HomeServlet extends HttpServlet {
         String action = req.getParameter("action");
         String id = req.getParameter("id");
 
-        f ("delete".equals(action) && id != null) {
+        if ("delete".equals(action) && id != null) {
             PropertyService propertyService = new PropertyService();
             boolean deleted = propertyService.deletePropertyById(id);  // Use the new method!
 
