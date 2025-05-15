@@ -660,7 +660,7 @@
 
 <!-- Hero Section -->
 <section class="hero-section">
-    <div class="hero-bg" style="background-image: url('${pageContext.request.contextPath}/images/your-hero-image.jpg');"></div>
+    <div class="hero-bg" style="background-image: url('${pageContext.request.contextPath}/images/land.jpg');"></div>
 
     <!-- Geometric background elements -->
     <div class="geometric-bg">
