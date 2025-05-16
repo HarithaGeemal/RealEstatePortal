@@ -833,45 +833,47 @@
                         <div class="filter-group">
                             <label class="filter-label">Districts</label>
                             <div class="filter-select-container">
-                                <select name="city" class="filter-select">
-                                    <option value="">All Districts</option>
-                                    <option value="Anuradhapura">Anuradhapura</option>
-                                    <option value="Colombo">Colombo</option>
-                                    <option value="Galle">Galle</option>
-                                    <option value="Gampaha">Gampaha</option>
-                                    <option value="Hambantota">Hambantota</option>
-                                    <option value="Kalutara">Kalutara</option>
-                                    <option value="Kandy">Kandy</option>
-                                    <option value="Kegalle">Kegalle</option>
-                                    <option value="Kurunegala">Kurunegala</option>
-                                    <option value="Matale">Matale</option>
-                                    <option value="Matara">Matara</option>
-                                    <option value="Nuwara Eliya">Nuwara Eliya</option>
-                                    <option value="Ratnapura">Ratnapura</option>
-                                </select>
+                                <label>
+                                    <select name="city" class="filter-select">
+                                        <option value="">All Districts</option>
+                                        <option value="Anuradhapura">Anuradhapura</option>
+                                        <option value="Colombo">Colombo</option>
+                                        <option value="Galle">Galle</option>
+                                        <option value="Gampaha">Gampaha</option>
+                                        <option value="Hambantota">Hambantota</option>
+                                        <option value="Kalutara">Kalutara</option>
+                                        <option value="Kandy">Kandy</option>
+                                        <option value="Kegalle">Kegalle</option>
+                                        <option value="Kurunegala">Kurunegala</option>
+                                        <option value="Matale">Matale</option>
+                                        <option value="Matara">Matara</option>
+                                        <option value="Nuwara Eliya">Nuwara Eliya</option>
+                                        <option value="Ratnapura">Ratnapura</option>
+                                    </select>
+                                </label>
                             </div>
                         </div>
 
-                        <div class="relative">
-                            <label>
-                                <select name="category" class="form-select">
-                                    <option value="">Select Category</option>
-                                    <option value="Residential">Residential</option>
-                                    <option value="Commercial">Commercial</option>
-                                    <option value="Coconut Land">Coconut Land</option>
-                                    <option value="Water Front Land">Water Front Land</option>
-                                    <option value="Agricultural Land">Agricultural Land</option>
-                                    <option value="Paddy field facing lands">Paddy field facing lands</option>
-                                    <option value="Mountain view land">Mountain view land</option>
-                                    <option value="Up country lands">Up country lands</option>
-                                    <option value="Down south lands">Down south lands</option>
-                                    <option value="Close to sacred/ancient city lands">Close to sacred/ancient city lands</option>
-                                    <option value="Close to highways">Close to highways</option>
-                                    <option value="Close to Airport">Close to Airport</option>
-                                    <option value="Close to railway stations">Close to railway stations</option>
-                                </select>
-                            </label>
-                        </div>
+<%--                        <div class="relative">--%>
+<%--                            <label>--%>
+<%--                                <select name="category" class="form-select">--%>
+<%--                                    <option value="">Select Category</option>--%>
+<%--                                    <option value="Residential">Residential</option>--%>
+<%--                                    <option value="Commercial">Commercial</option>--%>
+<%--                                    <option value="Coconut Land">Coconut Land</option>--%>
+<%--                                    <option value="Water Front Land">Water Front Land</option>--%>
+<%--                                    <option value="Agricultural Land">Agricultural Land</option>--%>
+<%--                                    <option value="Paddy field facing lands">Paddy field facing lands</option>--%>
+<%--                                    <option value="Mountain view land">Mountain view land</option>--%>
+<%--                                    <option value="Up country lands">Up country lands</option>--%>
+<%--                                    <option value="Down south lands">Down south lands</option>--%>
+<%--                                    <option value="Close to sacred/ancient city lands">Close to sacred/ancient city lands</option>--%>
+<%--                                    <option value="Close to highways">Close to highways</option>--%>
+<%--                                    <option value="Close to Airport">Close to Airport</option>--%>
+<%--                                    <option value="Close to railway stations">Close to railway stations</option>--%>
+<%--                                </select>--%>
+<%--                            </label>--%>
+<%--                        </div>--%>
 
 
                     <%--                        <div class="filter-group">--%>
