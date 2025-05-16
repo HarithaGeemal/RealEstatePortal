@@ -29,7 +29,7 @@ public class PropertyServlet extends HttpServlet {
     }
 
     @Override
-    rotected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
         String id = req.getParameter("id");
 
