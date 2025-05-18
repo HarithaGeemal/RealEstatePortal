@@ -13,7 +13,7 @@ public class PropertyBST {
     }
 
     // Insert (Create)
-    ublic void insert(Property property) {
+    public void insert(Property property) {
         root = insertRec(root, property);
     }
 
