@@ -133,6 +133,11 @@
         background-position: right 10px center;
         background-size: 16px;
     }
+    select.form-select,
+    select.form-select option {
+        background-color: rgb(44, 53, 71); /* dark dropdown bg */
+        color: white;              /* white option text */
+    }
 
     .form-file {
         padding: 0.5rem;

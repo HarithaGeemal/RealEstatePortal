@@ -14,7 +14,7 @@
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Rajdhani:wght@300;400;500;600&display=swap');
 
     :root {
-        --primary-glow: #0ea5e9;
+        --primary-glow: #468fe8;
         --secondary-glow: #6366f1;
         --accent-color: #10b981;
         --dark-bg: rgba(15, 23, 42, 0.8);

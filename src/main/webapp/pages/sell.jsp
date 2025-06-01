@@ -19,7 +19,7 @@
 
     <style>
         :root {
-            --primary-glow: #0ea5e9;
+            --primary-glow: #468fe8;
             --secondary-glow: #6366f1;
             --accent-color: #10b981;
             --dark-bg: rgba(15, 23, 42, 0.8);
