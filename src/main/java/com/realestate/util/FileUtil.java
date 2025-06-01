@@ -43,6 +43,43 @@ public class FileUtil {
         System.out.println("Successfully saved " + properties.size() + " properties to " + file.getAbsolutePath());
     }
 
+    public static void saveProperties(Property[] properties) throws IOException {
+        File file = new File(FILE_PATH);
+        File parentDir = file.getParentFile();
+        if (!parentDir.exists()) {
+            boolean created = parentDir.mkdirs();
+            System.out.println("Created directory " + parentDir.getAbsolutePath() + ": " + created);
+            if (!created) {
+                throw new IOException("Failed to create directory: " + parentDir.getAbsolutePath());
+            }
+        }
+        if (!file.exists()) {
+            boolean created = file.createNewFile();
+            System.out.println("Created file " + file.getAbsolutePath() + ": " + created);
+            if (!created) {
+                throw new IOException("Failed to create file: " + file.getAbsolutePath());
+            }
+        }
+        System.out.println("Saving properties to: " + file.getAbsolutePath());
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file, false))) {
+            int count = 0;
+            for (Property property : properties) {
+                if (property != null) {
+                    String line = property.toString();
+                    System.out.println("Writing line: " + line);
+                    writer.write(line);
+                    writer.newLine();
+                    count++;
+                }
+            }
+            System.out.println("Successfully saved " + count + " properties to " + file.getAbsolutePath());
+        } catch (IOException e) {
+            System.err.println("IOException while saving properties: " + e.getMessage());
+            e.printStackTrace();
+            throw e;
+        }
+    }
+
     public static List<Property> loadProperties() throws IOException {
         List<Property> properties = new ArrayList<>();
         File file = new File(FILE_PATH);

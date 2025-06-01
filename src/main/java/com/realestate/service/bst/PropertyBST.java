@@ -2,9 +2,6 @@ package com.realestate.service.bst;
 
 import com.realestate.model.Property;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class PropertyBST {
     private PropertyNode root;
 
@@ -81,51 +78,72 @@ public class PropertyBST {
     }
 
     // List all properties
-    public List<Property> getAllProperties() {
-        List<Property> properties = new ArrayList<>();
-        inOrderTraversal(root, properties);
+    public Property[] getAllProperties() {
+        int size = countNodes(root);
+        Property[] properties = new Property[size];
+        inOrderTraversal(root, properties, new int[]{0});
         return properties;
     }
 
-    private void inOrderTraversal(PropertyNode root, List<Property> properties) {
+    private void inOrderTraversal(PropertyNode root, Property[] properties, int[] index) {
         if (root != null) {
-            inOrderTraversal(root.left, properties);
-            properties.add(root.property);
-            inOrderTraversal(root.right, properties);
+            inOrderTraversal(root.left, properties, index);
+            properties[index[0]++] = root.property;
+            inOrderTraversal(root.right, properties, index);
         }
     }
 
     // Search by location (city)
-    public List<Property> searchByLocation(String city) {
-        List<Property> results = new ArrayList<>();
-        searchByLocationRec(root, city, results);
-        return results;
+    public Property[] searchByLocation(String city) {
+        int maxSize = countNodes(root); // Worst case: all nodes match
+        Property[] results = new Property[maxSize];
+        searchByLocationRec(root, city, results, new int[]{0});
+        return trimArray(results);
     }
 
-    private void searchByLocationRec(PropertyNode root, String city, List<Property> results) {
+    private void searchByLocationRec(PropertyNode root, String city, Property[] results, int[] index) {
         if (root != null) {
-            searchByLocationRec(root.left, city, results);
+            searchByLocationRec(root.left, city, results, index);
             if (root.property.getCity().equalsIgnoreCase(city)) {
-                results.add(root.property);
+                results[index[0]++] = root.property;
             }
-            searchByLocationRec(root.right, city, results);
+            searchByLocationRec(root.right, city, results, index);
         }
     }
 
     // Search by type (Land or House)
-    public List<Property> searchByType(String type) {
-        List<Property> results = new ArrayList<>();
-        searchByTypeRec(root, type, results);
-        return results;
+    public Property[] searchByType(String type) {
+        int maxSize = countNodes(root); // Worst case: all nodes match
+        Property[] results = new Property[maxSize];
+        searchByTypeRec(root, type, results, new int[]{0});
+        return trimArray(results);
     }
 
-    private void searchByTypeRec(PropertyNode root, String type, List<Property> results) {
+    private void searchByTypeRec(PropertyNode root, String type, Property[] results, int[] index) {
         if (root != null) {
-            searchByTypeRec(root.left, type, results);
+            searchByTypeRec(root.left, type, results, index);
             if (root.property.getType().equalsIgnoreCase(type)) {
-                results.add(root.property);
+                results[index[0]++] = root.property;
             }
-            searchByTypeRec(root.right, type, results);
+            searchByTypeRec(root.right, type, results, index);
         }
+    }
+
+    // Helper: Count nodes in BST
+    private int countNodes(PropertyNode root) {
+        if (root == null) return 0;
+        return 1 + countNodes(root.left) + countNodes(root.right);
+    }
+
+    // Helper: Trim array to remove trailing nulls
+    private Property[] trimArray(Property[] array) {
+        int size = 0;
+        for (Property p : array) {
+            if (p != null) size++;
+            else break;
+        }
+        Property[] trimmed = new Property[size];
+        System.arraycopy(array, 0, trimmed, 0, size);
+        return trimmed;
     }
 }
